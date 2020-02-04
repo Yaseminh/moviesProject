@@ -1,0 +1,32 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using System.Web.Mvc;
+using WebAppMovies.db;
+using WebAppMovies.Models;
+
+namespace WebAppMovies.Controllers
+{
+    public class HomeController : Controller
+    {
+        public ActionResult Index()
+        {
+            var db = new MoviesEntities2();
+            ViewBag.toListMovie= db.Movies.ToList();
+            return View();
+        }
+
+       public ActionResult FilmDetay(int id)
+        {
+          var db = new MoviesEntities2();
+          var movie = db.Movies.Find(id);
+          Movie mymovie = new WebAppMovies.Models.Movie(movie);
+            var commentList = db.Comments.Where(c=>c.Movies_Id==id).ToList();
+
+          return View(mymovie);
+        }
+
+      
+    }
+}

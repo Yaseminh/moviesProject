@@ -1,0 +1,60 @@
+﻿@model WebAppMovies.Models.Movie
+@{
+    ViewBag.Title = "FilmDetay";
+    Layout = null;
+}
+<!doctype html>
+<html lang="en">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
+    <title>Filmler</title>
+    <style>
+        body {
+            background-color: aliceblue;
+        }
+    </style>
+</head>
+<body>
+    <h1>Yorum Ekle</h1>
+    <form action="/Home/YorumEkleme" method="post">
+        <div class="form-group">
+            <label class="control-label col-sm-2" for="email">Kullanıcı Adı</label>
+            <div class="col-sm-10">
+                @Html.TextBoxFor(m => m.myMovie.MemberName, new { @class = "form-control" })
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-sm-4" for="email">Yorum Texti</label>
+            <div class="col-sm-10">
+                @Html.TextBoxFor(m => m.myMovie.Text, new { @class = "form-control" })
+            </div>
+        </div>  
+        <div class="form-group">
+            <div class="col-sm-offset-2 col-sm-10">
+                <button type="submit" class="button button-primary button-rounded button-size-md">Yorum Ekle</button>
+            </div>
+        </div>
+    </form>
+    <h2>Film Detayı</h2>
+    @{
+        <img src="~/filmresimleri/@Model.MovieImage" />
+        <h1 style="color:burlywood">@Model.MovieName</h1>
+        <p>@Model.MovieDesc</p>
+    }
+
+    <h1>Yorumlar</h1>
+    @foreach (var item in ViewBag.commentList)
+    {
+        <b>@item.MemberName</b>
+        <p>@item.Text</p>
+        <b>@item.AddedDate</b>
+        <br />
+    }
+</body>
+</html>
